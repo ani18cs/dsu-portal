@@ -168,17 +168,6 @@ A dynamic scholarship finder where students enter their marks, category, and pro
 
 ---
 
-## 📦 Getting Started Locally
-
-```bash
-git clone https://github.com/ani18cs/dsu-portal.git
-cd dsu-portal
-npm install
-npm run dev
-```
-
-
-
 ## 👤 Author
 
 **Aniket Kumar Singh**
