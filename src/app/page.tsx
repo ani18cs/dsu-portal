@@ -3,7 +3,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Hero } from "@/components/home/Hero";
-import { DepartmentExplorer } from "@/components/home/DepartmentExplorer";
+import { Accreditations } from "@/components/home/Accreditations";
+import { Disciplines } from "@/components/home/Disciplines";
+import { NewsCarousel } from "@/components/home/NewsCarousel";
 
 export default function Home() {
   const [isPreloading, setIsPreloading] = useState(true);
@@ -30,7 +32,7 @@ export default function Home() {
   };
 
   return (
-    <main className="relative min-h-screen bg-background">
+    <main className="relative min-h-screen bg-background flex flex-col">
       <AnimatePresence mode="wait">
         {isPreloading ? (
           <motion.div
@@ -68,9 +70,12 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
+            className="flex flex-col flex-1"
           >
             <Hero />
-            <DepartmentExplorer />
+            <Accreditations />
+            <Disciplines />
+            <NewsCarousel />
           </motion.div>
         )}
       </AnimatePresence>

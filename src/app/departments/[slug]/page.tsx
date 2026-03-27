@@ -10,8 +10,21 @@ export default function DepartmentTemplate() {
   const { slug } = useParams();
   const [activeAccordion, setActiveAccordion] = useState<number | null>(0);
 
-  // Template Data Placeholder
-  const departmentName = slug?.toString().replace(/-/g, " ").toUpperCase() || "DEPARTMENT NAME";
+  const routeSlug = slug?.toString() || "";
+
+  // Dynamic Image Router to map specific departments to their specific web images
+  const imageHashmap: Record<string, string> = {
+    "cse": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2940&auto=format&fit=crop",
+    "ai-robotics": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2940&auto=format&fit=crop",
+    "ece": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2940&auto=format&fit=crop",
+    "mech": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2940&auto=format&fit=crop",
+    "bio": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=2940&auto=format&fit=crop",
+    "business": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
+    "law": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=2940&auto=format&fit=crop",
+  };
+
+  const activeImage = imageHashmap[routeSlug] || "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2970&auto=format&fit=crop";
+  const departmentName = routeSlug.replace(/-/g, " ").toUpperCase() || "DEPARTMENT NAME";
   
   const curriculum = [
     { title: "Core Computational Intelligence", desc: "Foundational algorithms encompassing deep learning, NLP, and intelligent agents." },
@@ -23,9 +36,9 @@ export default function DepartmentTemplate() {
     <div className="min-h-screen bg-gray-50">
       {/* Hero Header */}
       <div className="relative bg-dsu-navy text-white pt-32 pb-24 px-6 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-dsu-navy via-dsu-navy/90 to-transparent" />
-          <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2970&auto=format&fit=crop" alt="Department Lab" className="w-full h-full object-cover mix-blend-overlay opacity-30" />
+        <div className="absolute inset-0 z-0 bg-[#002366]">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#002366] via-[#002366]/90 to-transparent z-10" />
+          <img src={activeImage} alt={departmentName} className="w-full h-full object-cover mix-blend-overlay opacity-50 z-0" />
         </div>
         <div className="max-w-7xl mx-auto relative z-10">
           <span className="inline-block px-4 py-1 bg-dsu-gold text-dsu-navy font-bold text-xs tracking-widest uppercase rounded-full mb-6 shadow-lg">
@@ -95,13 +108,18 @@ export default function DepartmentTemplate() {
               Faculty Profiles
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {[1, 2, 3, 4].map((i) => (
+              {[
+                { name: "Dr. Rajesh Kulkarni", role: "Professor & Head", image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=500&q=80" },
+                { name: "Dr. Suresh Iyer", role: "Associate Professor", image: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=500&q=80" },
+                { name: "Dr. Anjali Deshmukh", role: "Assistant Professor", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=500&q=80" },
+                { name: "Dr. Priya Sharma", role: "Senior Researcher", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=500&q=80" }
+              ].map((faculty, i) => (
                 <div key={i} className="group relative rounded-xl overflow-hidden bg-white border border-gray-100 shadow-sm p-6 transform transition-all hover:-translate-y-1 hover:shadow-xl">
-                  <div className="w-20 h-20 bg-gray-200 rounded-full mb-4 overflow-hidden">
-                    <img src={`https://i.pravatar.cc/150?img=${10+i}`} alt="Faculty" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                  <div className="w-20 h-20 bg-gray-200 rounded-full mb-4 overflow-hidden border-2 border-white shadow-md">
+                    <img src={faculty.image} alt={faculty.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
                   </div>
-                  <h4 className="text-xl font-bold text-dsu-navy mb-1 group-hover:text-dsu-gold transition-colors">Dr. Jane Doe {i}</h4>
-                  <p className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wider">Professor & Head</p>
+                  <h4 className="text-xl font-bold text-dsu-navy mb-1 group-hover:text-dsu-gold transition-colors">{faculty.name}</h4>
+                  <p className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wider">{faculty.role}</p>
                   <p className="text-sm text-gray-600 line-clamp-2">Specializing in autonomous systems algorithms and deep learning implementations for high-scale environments.</p>
                 </div>
               ))}

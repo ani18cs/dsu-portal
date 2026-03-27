@@ -44,7 +44,7 @@ export function AdmissionBanner() {
           className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6"
         >
           <Link
-            href="/admissions"
+            href="/apply"
             className="group flex items-center gap-2 bg-dsu-navy text-white px-8 py-4 rounded-full font-semibold hover:bg-dsu-navy/90 hover:scale-105 transition-all shadow-lg w-full sm:w-auto justify-center"
           >
             Apply for Admission

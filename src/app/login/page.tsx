@@ -80,7 +80,7 @@ function LoginContent() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6 pt-32 pb-20">
+    <div className="min-h-screen bg-blue-50 flex items-center justify-center p-6 pt-32 pb-20">
       <Suspense fallback={<div className="text-dsu-navy font-bold animate-pulse">Loading secure portal...</div>}>
          <LoginContent />
       </Suspense>
