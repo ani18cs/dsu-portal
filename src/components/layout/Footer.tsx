@@ -44,10 +44,17 @@ export function Footer() {
         <div className="col-span-1">
           <h3 className="font-serif text-xl text-dsu-gold mb-6 border-b border-white/10 pb-2 inline-block">Quick Links</h3>
           <ul className="space-y-3 text-sm text-gray-300">
-            {["About DSU", "Leadership", "Careers", "News & Events", "IQAC", "RTI & Disclosures"].map((link) => (
-              <li key={link}>
-                <Link href="#" className="hover:text-dsu-gold transition-colors block">
-                  {link}
+            {[
+              { label: "About DSU", href: "/university/about" },
+              { label: "Leadership", href: "/university/leadership" },
+              { label: "Careers", href: "/p/careers" },
+              { label: "News & Events", href: "/p/examinations" },
+              { label: "IQAC", href: "/university/iqac" },
+              { label: "Contact Us", href: "/p/contact" }
+            ].map((link) => (
+              <li key={link.label}>
+                <Link href={link.href} className="hover:text-dsu-gold transition-colors block">
+                  {link.label}
                 </Link>
               </li>
             ))}
@@ -58,10 +65,16 @@ export function Footer() {
         <div className="col-span-1">
           <h3 className="font-serif text-xl text-dsu-gold mb-6 border-b border-white/10 pb-2 inline-block">Academics</h3>
           <ul className="space-y-3 text-sm text-gray-300">
-            {["Schools & Departments", "Undergraduate Programs", "Postgraduate Programs", "Ph.D Programs", "Executive Education", "Placements"].map((link) => (
-              <li key={link}>
-                <Link href="#" className="hover:text-dsu-gold transition-colors block">
-                  {link}
+            {[
+              { label: "Schools & Departments", href: "/p/schools" },
+              { label: "Undergraduate Programs", href: "/p/ug-programs" },
+              { label: "Postgraduate Programs", href: "/p/pg-programs" },
+              { label: "Executive Education", href: "/p/executive-education" },
+              { label: "Placements", href: "/p/placement" }
+            ].map((link) => (
+              <li key={link.label}>
+                <Link href={link.href} className="hover:text-dsu-gold transition-colors block">
+                  {link.label}
                 </Link>
               </li>
             ))}
@@ -84,7 +97,7 @@ export function Footer() {
 
       <div className="max-w-7xl mx-auto pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
         <p className="text-sm text-gray-400">
-          © {new Date().getFullYear()} Dayananda Sagar University. All Rights Reserved.
+          © {new Date().getFullYear()} Dayananda Sagar University. All Rights Reserved. | Designed & Built by <span className="text-dsu-gold font-bold">Aniket Kumar Singh</span> <span className="text-white/50">@browser battle</span>
         </p>
         <div className="flex gap-4">
           <a href="https://www.facebook.com/Dayanandasagaruniversitybangalore/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-gray-400 hover:text-dsu-gold transition-colors">

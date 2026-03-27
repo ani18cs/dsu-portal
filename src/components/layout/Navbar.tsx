@@ -33,7 +33,6 @@ const SECONDARY_LINKS = [
     name: "Academics",
     href: "/p/academics",
     dropdown: [
-      { name: "Schools", href: "/p/schools" }, 
       { name: "UG Programs", href: "/p/ug-programs" }, 
       { name: "PG Programs", href: "/p/pg-programs" }, 
       { name: "Executive Education", href: "/p/executive-education" }, 
@@ -44,8 +43,7 @@ const SECONDARY_LINKS = [
     name: "Admissions",
     href: "/p/admissions",
     dropdown: [
-      { name: "Admission Details", href: "/p/admission-details" }, 
-      { name: "Direct Admissions 2026", href: "/p/direct-admissions" }, 
+      { name: "Admissions 2026", href: "/p/admissions" }, 
       { name: "Fees & Eligibility", href: "/p/fees-eligibility" }, 
       { name: "Hostel Fee", href: "/p/hostel-fee" }
     ] as SubLink[]
@@ -135,7 +133,7 @@ export function Navbar() {
               </div>
 
               {/* Apply Now Global CTA */}
-              <Link href="/apply" onClick={handleHomeClick} className="hidden md:flex items-center justify-center bg-dsu-gold text-[#002366] font-bold uppercase tracking-widest text-xs px-6 py-3 rounded-full hover:bg-white transition-all shadow-lg pointer-events-auto">
+              <Link href="/apply" className="hidden md:flex items-center justify-center bg-dsu-gold text-[#002366] font-bold uppercase tracking-widest text-xs px-6 py-3 rounded-full hover:bg-white transition-all shadow-lg pointer-events-auto">
                 Apply Now
               </Link>
 

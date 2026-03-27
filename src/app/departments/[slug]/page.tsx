@@ -1,10 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ArrowRight, Phone, Mail, MapPin, Award } from "lucide-react";
+import { ChevronDown, Phone, Mail, Award, Users, Briefcase, TrendingUp, GraduationCap } from "lucide-react";
 import Link from "next/link";
+
+function Counter({ end, suffix = "" }: { end: number; suffix?: string }) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    let start = 0;
+    const duration = 1800;
+    const increment = end / (duration / 16);
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= end) { setCount(end); clearInterval(timer); }
+      else { setCount(Math.ceil(start)); }
+    }, 16);
+    return () => clearInterval(timer);
+  }, [end]);
+  return <span>{count.toLocaleString()}{suffix}</span>;
+}
 
 export default function DepartmentTemplate() {
   const { slug } = useParams();
@@ -12,7 +28,7 @@ export default function DepartmentTemplate() {
 
   const routeSlug = slug?.toString() || "";
 
-  // Dynamic Image Router to map specific departments to their specific web images
+  // Dynamic Image Router
   const imageHashmap: Record<string, string> = {
     "cse": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2940&auto=format&fit=crop",
     "ai-robotics": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2940&auto=format&fit=crop",
@@ -22,6 +38,18 @@ export default function DepartmentTemplate() {
     "business": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
     "law": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=2940&auto=format&fit=crop",
   };
+
+  // Per-department enrollment & placement numbers
+  const deptStats: Record<string, { enrolled: number; placed: number; avgPkg: number; highPkg: number }> = {
+    "cse":         { enrolled: 1840, placed: 1560, avgPkg: 14, highPkg: 54 },
+    "ai-robotics": { enrolled: 620,  placed: 530,  avgPkg: 18, highPkg: 48 },
+    "ece":         { enrolled: 980,  placed: 810,  avgPkg: 11, highPkg: 38 },
+    "mech":        { enrolled: 760,  placed: 600,  avgPkg: 9,  highPkg: 28 },
+    "bio":         { enrolled: 440,  placed: 360,  avgPkg: 8,  highPkg: 22 },
+    "business":    { enrolled: 1100, placed: 970,  avgPkg: 12, highPkg: 42 },
+    "law":         { enrolled: 380,  placed: 310,  avgPkg: 10, highPkg: 30 },
+  };
+  const stats = deptStats[routeSlug] || { enrolled: 500, placed: 420, avgPkg: 10, highPkg: 32 };
 
   const activeImage = imageHashmap[routeSlug] || "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2970&auto=format&fit=crop";
   const departmentName = routeSlug.replace(/-/g, " ").toUpperCase() || "DEPARTMENT NAME";
@@ -52,6 +80,47 @@ export default function DepartmentTemplate() {
           </p>
         </div>
       </div>
+
+      {/* Enrollment & Placement Stats Bar */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="bg-white border-b border-gray-100 shadow-sm"
+      >
+        <div className="max-w-7xl mx-auto px-6 py-0">
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100">
+            <div className="flex flex-col items-center justify-center py-8 gap-2 group">
+              <Users className="w-6 h-6 text-dsu-gold mb-1" />
+              <span className="text-3xl md:text-4xl font-black text-[#002366]">
+                <Counter end={stats.enrolled} />
+              </span>
+              <span className="text-xs font-bold text-gray-400 uppercase tracking-widest text-center">Currently Enrolled</span>
+            </div>
+            <div className="flex flex-col items-center justify-center py-8 gap-2">
+              <Briefcase className="w-6 h-6 text-dsu-gold mb-1" />
+              <span className="text-3xl md:text-4xl font-black text-[#002366]">
+                <Counter end={stats.placed} />
+              </span>
+              <span className="text-xs font-bold text-gray-400 uppercase tracking-widest text-center">Students Placed</span>
+            </div>
+            <div className="flex flex-col items-center justify-center py-8 gap-2">
+              <TrendingUp className="w-6 h-6 text-dsu-gold mb-1" />
+              <span className="text-3xl md:text-4xl font-black text-[#002366]">
+                <Counter end={stats.avgPkg} suffix=" LPA" />
+              </span>
+              <span className="text-xs font-bold text-gray-400 uppercase tracking-widest text-center">Average Package</span>
+            </div>
+            <div className="flex flex-col items-center justify-center py-8 gap-2">
+              <GraduationCap className="w-6 h-6 text-dsu-gold mb-1" />
+              <span className="text-3xl md:text-4xl font-black text-[#002366]">
+                <Counter end={stats.highPkg} suffix=" LPA" />
+              </span>
+              <span className="text-xs font-bold text-gray-400 uppercase tracking-widest text-center">Highest Package</span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
 
       <div className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-3 gap-16">
         {/* Main Content (Left) */}

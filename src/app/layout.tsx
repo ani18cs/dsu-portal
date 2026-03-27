@@ -20,6 +20,7 @@ export const metadata: Metadata = {
 import { Navbar } from "@/components/layout/Navbar";
 import { AdmissionBanner } from "@/components/layout/AdmissionBanner";
 import { Footer } from "@/components/layout/Footer";
+import Chatbot from "@/components/Chatbot";
 
 export default function RootLayout({
   children,
@@ -38,6 +39,7 @@ export default function RootLayout({
         </main>
         <AdmissionBanner />
         <Footer />
+        <Chatbot />
       </body>
     </html>
   );
